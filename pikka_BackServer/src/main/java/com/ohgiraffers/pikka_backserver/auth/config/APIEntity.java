@@ -1,32 +1,55 @@
-package com.ohgiraffers.pikka_backserver.curation.model;
+package com.ohgiraffers.pikka_backserver.auth.config;
 
 
+import jakarta.persistence.*;
 
-public class CurationDTO {
-    private Integer jobId;
-    private String jobCompanyName;
-    private String jobInfoTitle;
-    private String jobWageType;
-    private String jobSalary;
-    private String jobLocation;
-    private String jobEmploymentType;
-    private String jobWebInfoUrl;
-    private String jobMobileInfoUrl;
 
-    public CurationDTO() {
+@Entity
+    public class APIEntity {
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer jobId;
+
+        @Column(name = "job_company_name", nullable = false)
+        private String jobCompanyName;
+
+        @Column(name = "job_info_title", nullable = false)
+        private String jobInfoTitle;
+
+        @Column(name = "job_wage_type")
+        private String jobWageType;
+
+        @Column(name = "job_salary")
+        private String jobSalary;
+
+        @Column(name = "job_location")
+        private String jobLocation;
+
+        @Column(name = "job_employment_type")
+        private String jobEmploymentType;
+
+
+        @Column(name = "job_web_info_url")
+        private String jobWebInfoUrl;
+
+        @Column(name = "job_mobile_info_url")
+        private String jobMobileInfoUrl;
+
+    public APIEntity() {
     }
 
-    public CurationDTO(Integer jobId, String jobCompanyName, String jobInfoTitle, String jobWageType, String jobSalary, String jobLocation, String jobEmploymentType, String jobWebInfoUrl, String jobMobileInfoUrl) {
-        this.jobId = jobId;
-        this.jobCompanyName = jobCompanyName;
-        this.jobInfoTitle = jobInfoTitle;
-        this.jobWageType = jobWageType;
-        this.jobSalary = jobSalary;
-        this.jobLocation = jobLocation;
-        this.jobEmploymentType = jobEmploymentType;
-        this.jobWebInfoUrl = jobWebInfoUrl;
-        this.jobMobileInfoUrl = jobMobileInfoUrl;
-    }
+    public APIEntity(Integer jobId, String jobCompanyName, String jobInfoTitle, String jobWageType, String jobSalary, String jobLocation, String jobEmploymentType, String jobWebInfoUrl, String jobMobileInfoUrl) {
+            this.jobId = jobId;
+            this.jobCompanyName = jobCompanyName;
+            this.jobInfoTitle = jobInfoTitle;
+            this.jobWageType = jobWageType;
+            this.jobSalary = jobSalary;
+            this.jobLocation = jobLocation;
+            this.jobEmploymentType = jobEmploymentType;
+            this.jobWebInfoUrl = jobWebInfoUrl;
+            this.jobMobileInfoUrl = jobMobileInfoUrl;
+        }
 
     public Integer getJobId() {
         return jobId;
@@ -102,7 +125,7 @@ public class CurationDTO {
 
     @Override
     public String toString() {
-        return "CurationDTO{" +
+        return "APIEntity{" +
                 "jobId=" + jobId +
                 ", jobCompanyName='" + jobCompanyName + '\'' +
                 ", jobInfoTitle='" + jobInfoTitle + '\'' +
@@ -115,3 +138,4 @@ public class CurationDTO {
                 '}';
     }
 }
+

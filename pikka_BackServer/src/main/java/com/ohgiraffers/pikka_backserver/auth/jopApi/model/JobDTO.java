@@ -1,38 +1,28 @@
-package com.ohgiraffers.pikka_backserver.curation.model;
+package com.ohgiraffers.pikka_backserver.auth.jopApi.model;
 
+public class JobDTO {
 
-
-public class CurationDTO {
-    private Integer jobId;
+    private String jobId;
     private String jobCompanyName;
     private String jobInfoTitle;
     private String jobWageType;
     private String jobSalary;
     private String jobLocation;
     private String jobEmploymentType;
+//    private LocalDate jobPostedDate;
+//    private LocalDate jobClosingDate;
     private String jobWebInfoUrl;
     private String jobMobileInfoUrl;
 
-    public CurationDTO() {
+
+    public JobDTO() {
     }
 
-    public CurationDTO(Integer jobId, String jobCompanyName, String jobInfoTitle, String jobWageType, String jobSalary, String jobLocation, String jobEmploymentType, String jobWebInfoUrl, String jobMobileInfoUrl) {
-        this.jobId = jobId;
-        this.jobCompanyName = jobCompanyName;
-        this.jobInfoTitle = jobInfoTitle;
-        this.jobWageType = jobWageType;
-        this.jobSalary = jobSalary;
-        this.jobLocation = jobLocation;
-        this.jobEmploymentType = jobEmploymentType;
-        this.jobWebInfoUrl = jobWebInfoUrl;
-        this.jobMobileInfoUrl = jobMobileInfoUrl;
-    }
-
-    public Integer getJobId() {
+    public String getJobId() {
         return jobId;
     }
 
-    public void setJobId(Integer jobId) {
+    public void setJobId(String jobId) {
         this.jobId = jobId;
     }
 
@@ -100,10 +90,11 @@ public class CurationDTO {
         this.jobMobileInfoUrl = jobMobileInfoUrl;
     }
 
+
     @Override
     public String toString() {
-        return "CurationDTO{" +
-                "jobId=" + jobId +
+        return "JobDTO{" +
+                "jobId='" + jobId + '\'' +
                 ", jobCompanyName='" + jobCompanyName + '\'' +
                 ", jobInfoTitle='" + jobInfoTitle + '\'' +
                 ", jobWageType='" + jobWageType + '\'' +

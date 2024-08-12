@@ -14,3 +14,5 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
+api:
+  key: "614874514773656f37385772796b4b"

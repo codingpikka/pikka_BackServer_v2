@@ -15,9 +15,24 @@ public class QuestionsDTO {
     private String responsePostedDate;
     private String responseStatus;
     private String answerContent;
-    private String contactTitle; // 새로운 필드 추가
 
     public QuestionsDTO() {
+    }
+
+    public QuestionsDTO(Long contactId, Long userId, String userName, String contactType, String contactContents, String contactPostedDate, Long adminId, String adminName, String responseTitle, String responseContents, String responsePostedDate, String responseStatus, String answerContent) {
+        this.contactId = contactId;
+        this.userId = userId;
+        this.userName = userName;
+        this.contactType = contactType;
+        this.contactContents = contactContents;
+        this.contactPostedDate = contactPostedDate;
+        this.adminId = adminId;
+        this.adminName = adminName;
+        this.responseTitle = responseTitle;
+        this.responseContents = responseContents;
+        this.responsePostedDate = responsePostedDate;
+        this.responseStatus = responseStatus;
+        this.answerContent = answerContent;
     }
 
     public Long getContactId() {
@@ -124,14 +139,6 @@ public class QuestionsDTO {
         this.answerContent = answerContent;
     }
 
-    public String getContactTitle() {
-        return contactTitle;
-    }
-
-    public void setContactTitle(String contactTitle) {
-        this.contactTitle = contactTitle;
-    }
-
     @Override
     public String toString() {
         return "QuestionsDTO{" +
@@ -148,7 +155,6 @@ public class QuestionsDTO {
                 ", responsePostedDate='" + responsePostedDate + '\'' +
                 ", responseStatus='" + responseStatus + '\'' +
                 ", answerContent='" + answerContent + '\'' +
-                ", contactTitle='" + contactTitle + '\'' +
                 '}';
     }
 }
