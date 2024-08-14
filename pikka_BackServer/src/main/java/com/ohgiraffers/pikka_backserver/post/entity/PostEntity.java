@@ -3,9 +3,14 @@ package com.ohgiraffers.pikka_backserver.post.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Entity
 @Table(name = "tbl_post")
 public class PostEntity {
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +25,14 @@ public class PostEntity {
     @Column(name = "post_content")
     private String content;
 
+    @Column(name = "post_create_at", nullable = false)
+    private String createAt;
 
     public PostEntity() {
+        this.createAt = LocalDateTime.now().format(DATE_FORMATTER);
     }
 
-    public PostEntity(Integer id, String title, String thumbnail, String content) {
-        this.id = id;
-        this.title = title;
-        this.thumbnail = thumbnail;
-        this.content = content;
-    }
+    // Getters and setters
 
     public Integer getId() {
         return id;
@@ -63,13 +66,19 @@ public class PostEntity {
         this.content = content;
     }
 
-    @Override
-    public String toString() {
-        return "PostEntity{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", thumbnail='" + thumbnail + '\'' +
-                ", content='" + content + '\'' +
-                '}';
+    public String getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void prePersist() {
+        if (this.createAt == null) {
+            this.createAt = LocalDateTime.now().format(DATE_FORMATTER);
+        }
     }
 }

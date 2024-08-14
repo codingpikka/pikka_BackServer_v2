@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
 
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private PostRepository postRepository;
 
     @Autowired
@@ -23,100 +26,70 @@ public class PostService {
     }
 
     @Transactional
-    // 게시글 등록
-    public Map<String, Integer> add(PostDTO postDTO){
+    public Map<String, Integer> add(PostDTO postDTO) {
         PostEntity postEntity = new PostEntity();
         postEntity.setId(postDTO.getId());
         postEntity.setTitle(postDTO.getTitle());
         postEntity.setThumbnail(postDTO.getThumbnail());
         postEntity.setContent(postDTO.getContent());
 
+        String currentTime = LocalDateTime.now().format(DATE_FORMATTER);
+        postEntity.setCreateAt(currentTime);
+
         PostEntity savedPostEntity = postRepository.save(postEntity);
 
         if (Objects.isNull(savedPostEntity)) {
             return null;
-
-        }else {
+        } else {
             return Map.of("postId", savedPostEntity.getId());
         }
     }
 
-    // 전체 게시글 조회
-    public List<PostDTO> getAllPosts()  {
+    public List<PostDTO> getAllPosts() {
         List<PostEntity> posts = postRepository.findAll();
         return posts.stream()
-                .map(post -> {
-                    PostDTO dto = new PostDTO();
-                    dto.setId(post.getId());
-                    dto.setTitle(post.getTitle());
-                    dto.setThumbnail(post.getThumbnail());
-                    dto.setContent(post.getContent());
-                    return dto;
-                })
+                .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    // id에 따른 특성 게시글 조회
     public PostDTO findPostById(Integer id) {
         PostEntity postEntity = postRepository.findById(id).orElse(null);
-
-        if (postEntity == null) {
-            // 존재하지 않는 경우 null 반환
-            return null;
-        }
-        // DTO 객체를 직접 생성
-        PostDTO postDTO = new PostDTO();
-        postDTO.setId(postEntity.getId());
-        postDTO.setTitle(postEntity.getTitle());
-        postDTO.setThumbnail(postEntity.getThumbnail());
-        postDTO.setContent(postEntity.getContent());
-
-        return postDTO;
+        return postEntity != null ? convertToDTO(postEntity) : null;
     }
 
     public PostDTO getPost(Integer id) {
-        PostEntity postEntity = postRepository.findById(id).orElse(null);
-        if (postEntity == null) {
-            return null;
-        }
-
-        PostDTO postDTO = new PostDTO();
-        postDTO.setId(postEntity.getId());
-        postDTO.setTitle(postEntity.getTitle());
-        postDTO.setContent(postEntity.getContent());
-//        postDTO.setAuthor(postEntity.getAuthor());
-//        postDTO.setDate(postEntity.getDate());
-
-        return postDTO;
+        return findPostById(id);
     }
 
+    @Transactional
     public PostDTO updatePost(Integer id, PostDTO postDTO) {
         PostEntity postEntity = postRepository.findById(id).orElse(null);
         if (postEntity == null) {
-            // 게시글이 존재하지 않으면 null 반환
             return null;
         }
 
-        // 기존 엔티티의 필드 수정
         postEntity.setTitle(postDTO.getTitle());
         postEntity.setThumbnail(postDTO.getThumbnail());
         postEntity.setContent(postDTO.getContent());
 
-        // 엔티티 저장
+        String currentTime = LocalDateTime.now().format(DATE_FORMATTER);
+        postEntity.setCreateAt(currentTime);
+
         PostEntity updatedPostEntity = postRepository.save(postEntity);
-
-        // DTO 객체 직접 생성
-        PostDTO updatedPostDTO = new PostDTO();
-        updatedPostDTO.setId(updatedPostEntity.getId());
-        updatedPostDTO.setTitle(updatedPostEntity.getTitle());
-        updatedPostDTO.setThumbnail(updatedPostEntity.getThumbnail());
-        updatedPostDTO.setContent(updatedPostEntity.getContent());
-
-        return updatedPostDTO;
+        return convertToDTO(updatedPostEntity);
     }
 
-    //id의 따라 삭제하는 메소드
     public void deletePostById(Integer id) {
         postRepository.deleteById(id);
+    }
+
+    private PostDTO convertToDTO(PostEntity postEntity) {
+        PostDTO dto = new PostDTO();
+        dto.setId(postEntity.getId());
+        dto.setTitle(postEntity.getTitle());
+        dto.setThumbnail(postEntity.getThumbnail());
+        dto.setContent(postEntity.getContent());
+        dto.setCreateAt(postEntity.getCreateAt());
+        return dto;
     }
 }

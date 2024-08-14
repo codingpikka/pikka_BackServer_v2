@@ -1,29 +1,40 @@
 package com.ohgiraffers.pikka_backserver.post.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class PostDTO {
 
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private Integer Id;
+    private Integer id;
     private String title;
     private String thumbnail;
     private String content;
+    private String createAt;
+
+
 
     public PostDTO() {
+        this.createAt = LocalDateTime.now().format(DATE_FORMATTER);
     }
 
-    public PostDTO(Integer id, String title, String thumbnail, String content) {
-        Id = id;
+    public PostDTO(Integer id, String title, String thumbnail, String content, String createAt) {
+        this.id = id;
         this.title = title;
         this.thumbnail = thumbnail;
         this.content = content;
+        this.createAt = (createAt == null || createAt.isEmpty())
+                ? LocalDateTime.now().format(DATE_FORMATTER)
+                : createAt;
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -50,13 +61,24 @@ public class PostDTO {
         this.content = content;
     }
 
+    public String getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        this.createAt = (createAt == null || createAt.isEmpty())
+                ? LocalDateTime.now().format(DATE_FORMATTER)
+                : createAt;
+    }
+
     @Override
     public String toString() {
         return "PostDTO{" +
-                "Id=" + Id +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", content='" + content + '\'' +
+                ", createAt='" + createAt + '\'' +
                 '}';
     }
 }
