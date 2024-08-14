@@ -2,13 +2,14 @@ package com.ohgiraffers.pikka_backserver.questions.model;
 
 public class QuestionsDTO {
 
-    private Long contactId;
-    private Long userId;
+    private Integer contactId;
+    private Integer userId;
     private String userName;
+    private String userTitle;
     private String contactType;
     private String contactContents;
     private String contactPostedDate;
-    private Long adminId;
+    private Integer adminId;
     private String adminName;
     private String responseTitle;
     private String responseContents;
@@ -19,10 +20,11 @@ public class QuestionsDTO {
     public QuestionsDTO() {
     }
 
-    public QuestionsDTO(Long contactId, Long userId, String userName, String contactType, String contactContents, String contactPostedDate, Long adminId, String adminName, String responseTitle, String responseContents, String responsePostedDate, String responseStatus, String answerContent) {
+    public QuestionsDTO(Integer contactId, Integer userId, String userName, String userTitle, String contactType, String contactContents, String contactPostedDate, Integer adminId, String adminName, String responseTitle, String responseContents, String responsePostedDate, String responseStatus, String answerContent) {
         this.contactId = contactId;
         this.userId = userId;
         this.userName = userName;
+        this.userTitle = userTitle;
         this.contactType = contactType;
         this.contactContents = contactContents;
         this.contactPostedDate = contactPostedDate;
@@ -35,19 +37,19 @@ public class QuestionsDTO {
         this.answerContent = answerContent;
     }
 
-    public Long getContactId() {
+    public Integer getContactId() {
         return contactId;
     }
 
-    public void setContactId(Long contactId) {
+    public void setContactId(Integer contactId) {
         this.contactId = contactId;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -57,6 +59,14 @@ public class QuestionsDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserTitle() {
+        return userTitle;
+    }
+
+    public void setUserTitle(String userTitle) {
+        this.userTitle = userTitle;
     }
 
     public String getContactType() {
@@ -83,11 +93,11 @@ public class QuestionsDTO {
         this.contactPostedDate = contactPostedDate;
     }
 
-    public Long getAdminId() {
+    public Integer getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(Long adminId) {
+    public void setAdminId(Integer adminId) {
         this.adminId = adminId;
     }
 
@@ -145,6 +155,7 @@ public class QuestionsDTO {
                 "contactId=" + contactId +
                 ", userId=" + userId +
                 ", userName='" + userName + '\'' +
+                ", userTitle='" + userTitle + '\'' +
                 ", contactType='" + contactType + '\'' +
                 ", contactContents='" + contactContents + '\'' +
                 ", contactPostedDate='" + contactPostedDate + '\'' +

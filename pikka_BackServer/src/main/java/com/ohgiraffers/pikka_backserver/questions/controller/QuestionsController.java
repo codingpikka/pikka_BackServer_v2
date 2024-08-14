@@ -3,10 +3,13 @@ package com.ohgiraffers.pikka_backserver.questions.controller;
 import com.ohgiraffers.pikka_backserver.questions.model.QuestionsDTO;
 import com.ohgiraffers.pikka_backserver.questions.service.QuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class QuestionsController {
@@ -25,27 +28,73 @@ public class QuestionsController {
     }
 
     @GetMapping("/insert/qna-list/{contactId}")
-    public ResponseEntity<QuestionsDTO> getQnaById(@PathVariable("contactId") Long contactId){
+    public ResponseEntity<QuestionsDTO> getQnaById(@PathVariable("contactId") Integer contactId){
         QuestionsDTO qna = questionsService.getQuestionById(contactId);
         return ResponseEntity.ok(qna);
     }
 
     @PutMapping("/insert/qna-list/{contactId}/answer")
-    public ResponseEntity<QuestionsDTO> submitAnswer(@PathVariable("contactId") Long contactId, @RequestBody QuestionsDTO questionsDTO){
+    public ResponseEntity<QuestionsDTO> submitAnswer(@PathVariable("contactId") Integer contactId, @RequestBody QuestionsDTO questionsDTO){
         QuestionsDTO updatedQna = questionsService.submitAnswer(contactId, questionsDTO);
         return ResponseEntity.ok(updatedQna);
     }
 
     @DeleteMapping("/insert/qna-list/{contactId}")
-    public ResponseEntity<Void> deleteQna(@PathVariable("contactId") Long contactId){
+    public ResponseEntity<Void> deleteQna(@PathVariable("contactId") Integer contactId){
         questionsService.deleteQna(contactId);
         return ResponseEntity.noContent().build();
     }
 
     // 유저용 엔드포인트
+    @GetMapping("/inquiry")
+    public ResponseEntity<List<QuestionsDTO>> getInquirys(){
+        List<QuestionsDTO> questions = questionsService.getAllInquirys();
+        System.out.println("Received data2: " + questions);
+        return ResponseEntity.ok(questions);
+    }
+
     @PostMapping("/inquiry")
-    public ResponseEntity<QuestionsDTO> createUserQuestion(@RequestBody QuestionsDTO questionsDTO) {
-        QuestionsDTO createdQuestion = questionsService.addQuestion(questionsDTO);
-        return ResponseEntity.ok(createdQuestion);
+    public Map<String, String> Inquiry(@RequestBody QuestionsDTO questionsDTO) {
+        HashMap<String, String> map = new HashMap<>();
+        System.out.println("Received postDTO: " + questionsDTO);
+        questionsService.add(questionsDTO);
+        map.put("status", "success message");
+        map.put("message", "Data received successfully");
+        return map;
+    }
+
+    @GetMapping("/inquiry/{id}")
+    private ResponseEntity<QuestionsDTO> getInquiry(@PathVariable Integer id){
+
+        QuestionsDTO questionsDTO = questionsService.getInquiry(id);
+        if (questionsDTO == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(questionsDTO);
+
+    }
+
+    @PutMapping("/inquiry/{id}")
+    public ResponseEntity<QuestionsDTO> updateQuestion(@PathVariable Integer id, @RequestBody QuestionsDTO questionsDTO){
+        try {
+            QuestionsDTO updatedQuestion = questionsService.updateInquiry(id, questionsDTO);
+            if (updatedQuestion == null){
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(updatedQuestion);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/inquiry/{id}")
+    public ResponseEntity<QuestionsDTO> deleteInquiry(@PathVariable Integer id){
+        try {
+            QuestionsDTO deletedQuestions = questionsService.findInquiryById(id);
+            questionsService.deleteInquiryById(id);
+            return ResponseEntity.ok(deletedQuestions);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

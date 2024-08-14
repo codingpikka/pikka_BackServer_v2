@@ -8,13 +8,16 @@ public class QuestionsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contact_id")
-    private Long contactId;
+    private Integer contactId;
 
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "user_title")
+    private String userTitle;
 
     @Column(name = "contact_type")
     private String contactType;
@@ -26,7 +29,7 @@ public class QuestionsEntity {
     private String contactPostedDate;
 
     @Column(name = "admin_id")
-    private Long adminId;
+    private Integer adminId;
 
     @Column(name = "admin_name")
     private String adminName;
@@ -46,13 +49,16 @@ public class QuestionsEntity {
     @Column(name = "answer_content")
     private String answerContent;
 
+
+
     public QuestionsEntity() {
     }
 
-    public QuestionsEntity(Long contactId, Long userId, String userName, String contactType, String contactContents, String contactPostedDate, Long adminId, String adminName, String responseTitle, String responseContents, String responsePostedDate, String responseStatus, String answerContent) {
+    public QuestionsEntity(Integer contactId, Integer userId, String userName, String userTitle, String contactType, String contactContents, String contactPostedDate, Integer adminId, String adminName, String responseTitle, String responseContents, String responsePostedDate, String responseStatus, String answerContent) {
         this.contactId = contactId;
         this.userId = userId;
         this.userName = userName;
+        this.userTitle = userTitle;
         this.contactType = contactType;
         this.contactContents = contactContents;
         this.contactPostedDate = contactPostedDate;
@@ -65,19 +71,19 @@ public class QuestionsEntity {
         this.answerContent = answerContent;
     }
 
-    public Long getContactId() {
+    public Integer getContactId() {
         return contactId;
     }
 
-    public void setContactId(Long contactId) {
+    public void setContactId(Integer contactId) {
         this.contactId = contactId;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -87,6 +93,14 @@ public class QuestionsEntity {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserTitle() {
+        return userTitle;
+    }
+
+    public void setUserTitle(String userTitle) {
+        this.userTitle = userTitle;
     }
 
     public String getContactType() {
@@ -113,11 +127,11 @@ public class QuestionsEntity {
         this.contactPostedDate = contactPostedDate;
     }
 
-    public Long getAdminId() {
+    public Integer getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(Long adminId) {
+    public void setAdminId(Integer adminId) {
         this.adminId = adminId;
     }
 
@@ -175,6 +189,7 @@ public class QuestionsEntity {
                 "contactId=" + contactId +
                 ", userId=" + userId +
                 ", userName='" + userName + '\'' +
+                ", userTitle='" + userTitle + '\'' +
                 ", contactType='" + contactType + '\'' +
                 ", contactContents='" + contactContents + '\'' +
                 ", contactPostedDate='" + contactPostedDate + '\'' +
