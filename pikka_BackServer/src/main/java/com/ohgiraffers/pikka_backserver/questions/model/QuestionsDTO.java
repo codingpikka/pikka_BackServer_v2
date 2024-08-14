@@ -1,7 +1,6 @@
 package com.ohgiraffers.pikka_backserver.questions.model;
 
 public class QuestionsDTO {
-
     private Integer contactId;
     private Integer userId;
     private String userName;
@@ -17,10 +16,15 @@ public class QuestionsDTO {
     private String responseStatus;
     private String answerContent;
 
-    public QuestionsDTO() {
-    }
+    // 기본 생성자
+    public QuestionsDTO() {}
 
-    public QuestionsDTO(Integer contactId, Integer userId, String userName, String userTitle, String contactType, String contactContents, String contactPostedDate, Integer adminId, String adminName, String responseTitle, String responseContents, String responsePostedDate, String responseStatus, String answerContent) {
+    // 모든 필드를 포함한 생성자
+    public QuestionsDTO(Integer contactId, Integer userId, String userName, String userTitle,
+                        String contactType, String contactContents, String contactPostedDate,
+                        Integer adminId, String adminName, String responseTitle,
+                        String responseContents, String responsePostedDate,
+                        String responseStatus, String answerContent) {
         this.contactId = contactId;
         this.userId = userId;
         this.userName = userName;
@@ -37,117 +41,48 @@ public class QuestionsDTO {
         this.answerContent = answerContent;
     }
 
-    public Integer getContactId() {
-        return contactId;
-    }
+    // Getter와 Setter 메소드들
+    public Integer getContactId() { return contactId; }
+    public void setContactId(Integer contactId) { this.contactId = contactId; }
 
-    public void setContactId(Integer contactId) {
-        this.contactId = contactId;
-    }
+    public Integer getUserId() { return userId; }
+    public void setUserId(Integer userId) { this.userId = userId; }
 
-    public Integer getUserId() {
-        return userId;
-    }
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+    public String getUserTitle() { return userTitle; }
+    public void setUserTitle(String userTitle) { this.userTitle = userTitle; }
 
-    public String getUserName() {
-        return userName;
-    }
+    public String getContactType() { return contactType; }
+    public void setContactType(String contactType) { this.contactType = contactType; }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    public String getContactContents() { return contactContents; }
+    public void setContactContents(String contactContents) { this.contactContents = contactContents; }
 
-    public String getUserTitle() {
-        return userTitle;
-    }
+    public String getContactPostedDate() { return contactPostedDate; }
+    public void setContactPostedDate(String contactPostedDate) { this.contactPostedDate = contactPostedDate; }
 
-    public void setUserTitle(String userTitle) {
-        this.userTitle = userTitle;
-    }
+    public Integer getAdminId() { return adminId; }
+    public void setAdminId(Integer adminId) { this.adminId = adminId; }
 
-    public String getContactType() {
-        return contactType;
-    }
+    public String getAdminName() { return adminName; }
+    public void setAdminName(String adminName) { this.adminName = adminName; }
 
-    public void setContactType(String contactType) {
-        this.contactType = contactType;
-    }
+    public String getResponseTitle() { return responseTitle; }
+    public void setResponseTitle(String responseTitle) { this.responseTitle = responseTitle; }
 
-    public String getContactContents() {
-        return contactContents;
-    }
+    public String getResponseContents() { return responseContents; }
+    public void setResponseContents(String responseContents) { this.responseContents = responseContents; }
 
-    public void setContactContents(String contactContents) {
-        this.contactContents = contactContents;
-    }
+    public String getResponsePostedDate() { return responsePostedDate; }
+    public void setResponsePostedDate(String responsePostedDate) { this.responsePostedDate = responsePostedDate; }
 
-    public String getContactPostedDate() {
-        return contactPostedDate;
-    }
+    public String getResponseStatus() { return responseStatus; }
+    public void setResponseStatus(String responseStatus) { this.responseStatus = responseStatus; }
 
-    public void setContactPostedDate(String contactPostedDate) {
-        this.contactPostedDate = contactPostedDate;
-    }
-
-    public Integer getAdminId() {
-        return adminId;
-    }
-
-    public void setAdminId(Integer adminId) {
-        this.adminId = adminId;
-    }
-
-    public String getAdminName() {
-        return adminName;
-    }
-
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
-    }
-
-    public String getResponseTitle() {
-        return responseTitle;
-    }
-
-    public void setResponseTitle(String responseTitle) {
-        this.responseTitle = responseTitle;
-    }
-
-    public String getResponseContents() {
-        return responseContents;
-    }
-
-    public void setResponseContents(String responseContents) {
-        this.responseContents = responseContents;
-    }
-
-    public String getResponsePostedDate() {
-        return responsePostedDate;
-    }
-
-    public void setResponsePostedDate(String responsePostedDate) {
-        this.responsePostedDate = responsePostedDate;
-    }
-
-    public String getResponseStatus() {
-        return responseStatus;
-    }
-
-    public void setResponseStatus(String responseStatus) {
-        this.responseStatus = responseStatus;
-    }
-
-    public String getAnswerContent() {
-        return answerContent;
-    }
-
-    public void setAnswerContent(String answerContent) {
-        this.answerContent = answerContent;
-    }
+    public String getAnswerContent() { return answerContent; }
+    public void setAnswerContent(String answerContent) { this.answerContent = answerContent; }
 
     @Override
     public String toString() {

@@ -13,6 +13,6 @@ spring:
         format_sql: true
     database: mysql
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 api:
   key: "626671426d73656f35387656534a6c"

@@ -54,35 +54,32 @@ public class QuestionsController {
     }
 
     @PostMapping("/inquiry")
-    public Map<String, String> Inquiry(@RequestBody QuestionsDTO questionsDTO) {
-        HashMap<String, String> map = new HashMap<>();
+    public ResponseEntity<QuestionsDTO> createInquiry(@RequestBody QuestionsDTO questionsDTO) {
         System.out.println("Received postDTO: " + questionsDTO);
-        questionsService.add(questionsDTO);
-        map.put("status", "success message");
-        map.put("message", "Data received successfully");
-        return map;
+        QuestionsDTO createdInquiry = questionsService.add(questionsDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdInquiry);
     }
 
     @GetMapping("/inquiry/{id}")
-    private ResponseEntity<QuestionsDTO> getInquiry(@PathVariable Integer id){
-
+    public ResponseEntity<QuestionsDTO> getInquiry(@PathVariable Integer id){
         QuestionsDTO questionsDTO = questionsService.getInquiry(id);
         if (questionsDTO == null){
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(questionsDTO);
-
     }
 
     @PutMapping("/inquiry/{id}")
     public ResponseEntity<QuestionsDTO> updateQuestion(@PathVariable Integer id, @RequestBody QuestionsDTO questionsDTO){
         try {
+            System.out.println("Received update request for id: " + id);
+            System.out.println("Received DTO in controller: " + questionsDTO);
             QuestionsDTO updatedQuestion = questionsService.updateInquiry(id, questionsDTO);
-            if (updatedQuestion == null){
-                return ResponseEntity.notFound().build();
-            }
+            System.out.println("Updated question in controller: " + updatedQuestion);
             return ResponseEntity.ok(updatedQuestion);
         } catch (Exception e){
+            System.err.println("Error updating inquiry: " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
