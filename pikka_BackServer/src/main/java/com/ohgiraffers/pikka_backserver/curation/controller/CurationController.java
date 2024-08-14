@@ -1,6 +1,7 @@
 package com.ohgiraffers.pikka_backserver.curation.controller;
 
 
+import com.ohgiraffers.pikka_backserver.curation.entity.CurationEntity;
 import com.ohgiraffers.pikka_backserver.curation.model.CurationDTO;
 import com.ohgiraffers.pikka_backserver.curation.service.CurationService;
 import com.ohgiraffers.pikka_backserver.auth.jopApi.entity.JobEntity;
@@ -16,9 +17,14 @@ import java.util.Optional;
 @RequestMapping("/api/curation")
 public class CurationController {
 
-    @Autowired
     private CurationService service;
 
+    @Autowired
+    public CurationController(CurationService service) {
+        this.service = service;
+    }
+
+    // 조회
     @GetMapping
     public ResponseEntity<List<JobEntity>> getAllItems() {
         List<JobEntity> items = service.findCuration();
@@ -27,6 +33,7 @@ public class CurationController {
 
     }
 
+    // id 값으로 상세조회
     @GetMapping("/{id}")
     public ResponseEntity<JobEntity> getItemById(@PathVariable Integer id) {
         Optional<JobEntity> item = service.findById(id);
@@ -37,6 +44,7 @@ public class CurationController {
         }
     }
 
+    // 저장
     @PostMapping
     public ResponseEntity<JobEntity> createItem(@RequestBody CurationDTO curationDTO) {
         JobEntity item = new JobEntity();
@@ -48,10 +56,14 @@ public class CurationController {
         item.setJobEmploymentType(curationDTO.getJobEmploymentType());
         item.setJobWebInfoUrl(curationDTO.getJobWebInfoUrl());
         item.setJobMobileInfoUrl(curationDTO.getJobMobileInfoUrl());
+        item.setStatus(curationDTO.getStatus());
+        item.setDate(curationDTO.getDate());
+        item.setTitle(curationDTO.getTitle());
         JobEntity savedItem = service.save(item);
         return new ResponseEntity<>(savedItem, HttpStatus.CREATED);
     }
 
+    // 수정
     @PutMapping("/{id}")
     public ResponseEntity<JobEntity> updateItem(@PathVariable Integer id, @RequestBody CurationDTO curationDTO) {
         Optional<JobEntity> existingItem = service.findById(id);
@@ -72,6 +84,7 @@ public class CurationController {
         }
     }
 
+    // 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteItem(@PathVariable Integer id) {
         Optional<JobEntity> existingItem = service.findById(id);
@@ -81,5 +94,12 @@ public class CurationController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+    }
+    // 검색 엔드포인트 추가
+    @GetMapping("/search")
+    public ResponseEntity<List<JobEntity>> searchPosts(@RequestParam String term) {
+        List<JobEntity> results = service.searchPosts(term);
+        return new ResponseEntity<>(results, HttpStatus.OK);
     }
 }

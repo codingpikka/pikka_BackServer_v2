@@ -3,6 +3,8 @@ package com.ohgiraffers.pikka_backserver.auth.jopApi.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class JobEntity {
 
@@ -28,17 +30,21 @@ public class JobEntity {
     @Column(name = "job_employment_type")
     private String jobEmploymentType;
 
-//    @Column(name = "job_posted_date")
-//    private LocalDate jobPostedDate;
-//
-//    @Column(name = "job_closing_date")
-//    private LocalDate jobClosingDate;
 
     @Column(name = "job_web_info_url")
     private String jobWebInfoUrl;
 
     @Column(name = "job_mobile_info_url")
     private String jobMobileInfoUrl;
+
+    @Column(name = "stauts")
+    private String status;
+
+    @Column(name = "date")
+    private LocalDate date;
+
+    @Column(name = "title")
+    private String title;
 
     public JobEntity() {
     }
@@ -115,6 +121,30 @@ public class JobEntity {
         this.jobMobileInfoUrl = jobMobileInfoUrl;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "JobEntity{" +
@@ -127,6 +157,9 @@ public class JobEntity {
                 ", jobEmploymentType='" + jobEmploymentType + '\'' +
                 ", jobWebInfoUrl='" + jobWebInfoUrl + '\'' +
                 ", jobMobileInfoUrl='" + jobMobileInfoUrl + '\'' +
-                '}'+'\n';
+                ", status='" + status + '\'' +
+                ", date=" + date +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

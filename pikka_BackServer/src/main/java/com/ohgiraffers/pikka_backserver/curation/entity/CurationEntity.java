@@ -13,8 +13,8 @@ public class CurationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "curation_category")
-    private String category;
+    @Column(name = "curation1")
+    private String curation1;
 
     @Column(name = "curation_title")
     private String title;
@@ -29,15 +29,13 @@ public class CurationEntity {
 
     }
 
-
-    public CurationEntity(Long id, String category, String title, LocalDate date) {
+    public CurationEntity(Long id, String curation1, String title, LocalDate date) {
         this.id = id;
-        this.category = category;
+        this.curation1 = curation1;
         this.title = title;
         this.date = date;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -46,12 +44,12 @@ public class CurationEntity {
         this.id = id;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCuration1() {
+        return curation1;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCuration1(String curation1) {
+        this.curation1 = curation1;
     }
 
     public String getTitle() {
@@ -74,7 +72,7 @@ public class CurationEntity {
     public String toString() {
         return "CurationEntity{" +
                 "id=" + id +
-                ", category='" + category + '\'' +
+                ", curation1='" + curation1 + '\'' +
                 ", title='" + title + '\'' +
                 ", date=" + date +
                 '}';

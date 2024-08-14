@@ -1,6 +1,7 @@
 package com.ohgiraffers.pikka_backserver.curation.model;
 
 
+import java.time.LocalDate;
 
 public class CurationDTO {
     private Integer jobId;
@@ -12,11 +13,14 @@ public class CurationDTO {
     private String jobEmploymentType;
     private String jobWebInfoUrl;
     private String jobMobileInfoUrl;
+    private String status;
+    private LocalDate date;
+    private String title;
 
     public CurationDTO() {
     }
 
-    public CurationDTO(Integer jobId, String jobCompanyName, String jobInfoTitle, String jobWageType, String jobSalary, String jobLocation, String jobEmploymentType, String jobWebInfoUrl, String jobMobileInfoUrl) {
+    public CurationDTO(Integer jobId, String jobCompanyName, String jobInfoTitle, String jobWageType, String jobSalary, String jobLocation, String jobEmploymentType, String jobWebInfoUrl, String jobMobileInfoUrl, String status, LocalDate date, String title) {
         this.jobId = jobId;
         this.jobCompanyName = jobCompanyName;
         this.jobInfoTitle = jobInfoTitle;
@@ -26,6 +30,9 @@ public class CurationDTO {
         this.jobEmploymentType = jobEmploymentType;
         this.jobWebInfoUrl = jobWebInfoUrl;
         this.jobMobileInfoUrl = jobMobileInfoUrl;
+        this.status = status;
+        this.date = date;
+        this.title = title;
     }
 
     public Integer getJobId() {
@@ -100,6 +107,30 @@ public class CurationDTO {
         this.jobMobileInfoUrl = jobMobileInfoUrl;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "CurationDTO{" +
@@ -112,6 +143,9 @@ public class CurationDTO {
                 ", jobEmploymentType='" + jobEmploymentType + '\'' +
                 ", jobWebInfoUrl='" + jobWebInfoUrl + '\'' +
                 ", jobMobileInfoUrl='" + jobMobileInfoUrl + '\'' +
+                ", status='" + status + '\'' +
+                ", date=" + date +
+                ", title='" + title + '\'' +
                 '}';
     }
 }

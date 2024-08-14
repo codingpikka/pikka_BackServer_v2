@@ -20,7 +20,7 @@ public class CurationService {
     public List<JobEntity> findCuration() {
         // 1번 관리자가 선택한 큐레이션 번호를 조회함
         //  ex)1,2,3,4
-        List<Integer> list = Arrays.asList(1,2,3,4);
+        List<Integer> list = Arrays.asList(101,102,103,104);
 
         // 2번 1번에서 조회한 값을 기준으로 curation 데이터를 조회한다.
         List<JobEntity> results =  repository.findAllById(list);
@@ -28,15 +28,24 @@ public class CurationService {
         return results;
     }
 
+    // id 값으로 조회
     public Optional<JobEntity> findById(Integer id) {
         return repository.findById(id);
     }
 
+    // 저장
     public JobEntity save(JobEntity jobEntity) {
         return repository.save(jobEntity);
     }
 
+    // 삭제
     public void deleteById(Integer id) {
         repository.deleteById(id);
     }
+
+    // 검색 기능 추가
+    public List<JobEntity> searchPosts(String term) {
+        return repository.findByTitleContainingOrJobCompanyNameContainingOrJobInfoTitleContaining(term, term, term);
+    }
+
 }
